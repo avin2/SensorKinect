@@ -33,6 +33,9 @@
 #define XN_SENSOR_VENDOR_ID_KINECT		0x045E
 #define XN_SENSOR_PRODUCT_ID_KINECT		0x02AE
 
+#define XN_SENSOR_PRODUCT_ID_KINECT4WINDOWS		0x02BF
+
+
 //---------------------------------------------------------------------------
 // Enums
 //---------------------------------------------------------------------------
@@ -45,6 +48,8 @@ typedef enum
 //---------------------------------------------------------------------------
 // Code
 //---------------------------------------------------------------------------
+XnStringsHash s_k4wDevices;// --shenberg mod-- - will replace with proper singleton later
+
 XnSensorIO::XnSensorIO(XN_SENSOR_HANDLE* pSensorHandle) :
 	m_pSensorHandle(pSensorHandle),
 	m_bMiscSupported(FALSE),
@@ -121,6 +126,14 @@ XnStatus XnSensorIO::OpenDevice(const XnChar* strPath)
 
 	strcpy(m_strDeviceName, strPath);
 
+	// --shenberg mod--
+	XnValue val;
+	if (XN_STATUS_OK == s_k4wDevices.Get(strPath, val)) {
+		m_pSensorHandle->bIsK4W = TRUE;
+	} else {
+		m_pSensorHandle->bIsK4W = FALSE;
+	}
+
 	return XN_STATUS_OK;
 }
 
@@ -146,11 +159,13 @@ XnStatus XnSensorIO::OpenDataEndPoints(XnSensorUsbInterface nInterface, const Xn
 			XN_LOG_WARNING_RETURN(XN_STATUS_USB_INTERFACE_NOT_SUPPORTED, XN_MASK_DEVICE_IO, "Unknown interface type: %d", nInterface);
 		}
 // --avin mod--
-/*
-		xnLogVerbose(XN_MASK_DEVICE_IO, "Setting USB alternative interface to %d...", nAlternativeInterface);
-		nRetVal = xnUSBSetInterface(m_pSensorHandle->USBDevice, 0, nAlternativeInterface);
-		XN_IS_STATUS_OK(nRetVal);
-*/
+// --shenberg mod-- on top of it
+		if (m_pSensorHandle->bIsK4W == TRUE) {
+			//TODO: un-hard-code (meaning, fix XnHostProtocolInitFWParams)
+			xnLogVerbose(XN_MASK_DEVICE_IO, "K4W - Setting USB alternative interface to %d...", 1);
+			nRetVal = xnUSBSetInterface(m_pSensorHandle->USBDevice, 0, 1);
+			XN_IS_STATUS_OK(nRetVal);
+		}
 	}
 
 	xnLogVerbose(XN_MASK_DEVICE_IO, "Opening endpoints...");
@@ -389,7 +404,7 @@ XnStatus XnSensorIO::EnumerateSensors(XnConnectionString* aConnectionStrings, Xn
 
 // Temporary patch: "Cache" the devices since running USB enum on the MacOSX platform takes several seconds due to problems in libusb!		
 #if (XN_PLATFORM == XN_PLATFORM_MACOSX)	
-	static XnStringsHash devicesSet;
+	static XnStringsHash devicesSet; // --shenberg mod--
 	
 	if (devicesSet.Size() == 0)
 	{
@@ -397,13 +412,23 @@ XnStatus XnSensorIO::EnumerateSensors(XnConnectionString* aConnectionStrings, Xn
 		// search for a kinect device
 		nRetVal = Enumerate(XN_SENSOR_PRODUCT_ID_KINECT, devicesSet);
 		XN_IS_STATUS_OK(nRetVal);
+		// --shenberg mod--
+		nRetVal = Enumerate(XN_SENSOR_PRODUCT_ID_KINECT4WINDOWS, devicesSet);
+		XN_IS_STATUS_OK(nRetVal);
+		nRetVal = Enumerate(XN_SENSOR_PRODUCT_ID_KINECT4WINDOWS, s_k4wDevices);
+		XN_IS_STATUS_OK(nRetVal);
 	}
 #else
-	XnStringsHash devicesSet;
+	XnStringsHash devicesSet;// --shenberg mod--
 
 	// --avin mod--
 	// search for a kinect device
 	nRetVal = Enumerate(XN_SENSOR_PRODUCT_ID_KINECT, devicesSet);
+	XN_IS_STATUS_OK(nRetVal);
+	// --shenberg mod--
+	nRetVal = Enumerate(XN_SENSOR_PRODUCT_ID_KINECT4WINDOWS, devicesSet);
+	XN_IS_STATUS_OK(nRetVal);
+	nRetVal = Enumerate(XN_SENSOR_PRODUCT_ID_KINECT4WINDOWS, s_k4wDevices);
 	XN_IS_STATUS_OK(nRetVal);
 #endif
 	

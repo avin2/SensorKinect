@@ -9,4 +9,7 @@ SYSFS{idProduct}=="0601",SYSFS{idVendor}=="1d27",MODE="666",OWNER="xxx",GROUP="u
 SYSFS{idProduct}=="02AE",SYSFS{idVendor}=="045E",MODE="666",OWNER="xxx",GROUP="users"
 SYSFS{idProduct}=="02AD",SYSFS{idVendor}=="045E",MODE="666",OWNER="xxx",GROUP="users"
 SYSFS{idProduct}=="02B0",SYSFS{idVendor}=="045E",MODE="666",OWNER="xxx",GROUP="users"
+#--shenberg mod--
+SYSFS{idProduct}=="02BF",SYSFS{idVendor}=="045E",MODE="666",OWNER="xxx",GROUP="users"
+SYSFS{idProduct}=="02BE",SYSFS{idVendor}=="045E",MODE="666",OWNER="xxx",GROUP="users"
 

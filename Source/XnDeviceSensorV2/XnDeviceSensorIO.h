@@ -64,6 +64,7 @@ typedef struct XN_SENSOR_HANDLE
 	XnUsbConnection ImageConnection;
 	XnUsbConnection MiscConnection;
 	XnUInt8 nBoardVer;
+	XnBool bIsK4W; // -- shenberg mod --
 } XN_SENSOR_HANDLE;
 
 //---------------------------------------------------------------------------

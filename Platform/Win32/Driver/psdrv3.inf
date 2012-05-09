@@ -63,6 +63,10 @@ DefaultDestDir = 12 ; Driver Dir
 %USB\VID_045E&PID_02AD.DeviceDesc%=psdrv3.Dev, USB\VID_045E&PID_02AD
 %USB\VID_045E&PID_02AE.DeviceDesc%=psdrv3.Dev, USB\VID_045E&PID_02AE&MI_00
 %USB\VID_045E&PID_02AE.DeviceDesc%=psdrv3.Dev, USB\VID_045E&PID_02AE
+%USB\VID_045E&PID_02BF.DeviceDesc%=psdrv3.Dev, USB\VID_045E&PID_02BF&MI_00
+%USB\VID_045E&PID_02BF.DeviceDesc%=psdrv3.Dev, USB\VID_045E&PID_02BF
+%USB\VID_045E&PID_02BE.DeviceDesc%=psdrv3.Dev, USB\VID_045E&PID_02BE&MI_00
+%USB\VID_045E&PID_02BE.DeviceDesc%=psdrv3.Dev, USB\VID_045E&PID_02BE
 
 [PrimeSense.NTamd64]
 %USB\VID_1D27&PID_0200.DeviceDesc%=psdrv3.Dev, USB\VID_1D27&PID_0200&MI_00
@@ -85,6 +89,10 @@ DefaultDestDir = 12 ; Driver Dir
 %USB\VID_045E&PID_02AD.DeviceDesc%=psdrv3.Dev, USB\VID_045E&PID_02AD
 %USB\VID_045E&PID_02AE.DeviceDesc%=psdrv3.Dev, USB\VID_045E&PID_02AE&MI_00
 %USB\VID_045E&PID_02AE.DeviceDesc%=psdrv3.Dev, USB\VID_045E&PID_02AE
+%USB\VID_045E&PID_02BF.DeviceDesc%=psdrv3.Dev, USB\VID_045E&PID_02BF&MI_00
+%USB\VID_045E&PID_02BF.DeviceDesc%=psdrv3.Dev, USB\VID_045E&PID_02BF
+%USB\VID_045E&PID_02BE.DeviceDesc%=psdrv3.Dev, USB\VID_045E&PID_02BE&MI_00
+%USB\VID_045E&PID_02BE.DeviceDesc%=psdrv3.Dev, USB\VID_045E&PID_02BE
 
 [psdrv3.Dev.NT]
 CopyFiles=psdrv3.Files.Ext
@@ -166,3 +174,5 @@ USB\VID_1D27&PID_F9DB.DeviceDesc="PrimeSense Sensor Development Kit NG Debug"
 USB\VID_045E&PID_02B0.DeviceDesc="Kinect Motor"
 USB\VID_045E&PID_02AD.DeviceDesc="Kinect Audio"
 USB\VID_045E&PID_02AE.DeviceDesc="Kinect Camera"
+USB\VID_045E&PID_02BE.DeviceDesc="Kinect for Windows Audio"
+USB\VID_045E&PID_02BF.DeviceDesc="Kinect for Windows Camera"

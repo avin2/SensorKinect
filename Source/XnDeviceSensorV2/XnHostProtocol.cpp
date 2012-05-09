@@ -1022,7 +1022,6 @@ XnStatus XnHostProtocolGetFixedParams(XnDevicePrivateData* pDevicePrivateData, X
 	XnChar* pData = FixedParamsBuffer;
 
 	xnLogVerbose(XN_MASK_SENSOR_PROTOCOL, "Getting the fixed params...");
-
 	if (pDevicePrivateData->FWInfo.nFWVer >= XN_SENSOR_FW_VER_3_0)
 	{
 		nFixedParamSize = sizeof(XnFixedParams);
@@ -1034,6 +1033,10 @@ XnStatus XnHostProtocolGetFixedParams(XnDevicePrivateData* pDevicePrivateData, X
 	else // v0.17
 	{
 		nFixedParamSize = sizeof(XnFixedParamsV20);
+	}
+	// --shenberg mod--
+	if (pDevicePrivateData->SensorHandle.bIsK4W == TRUE) {
+		nFixedParamSize = 334; // value taken from libfreenect
 	}
 
 	xnOSMemSet(&FixedParams, 0, sizeof(XnFixedParams));
