@@ -104,8 +104,6 @@ private:
 		XnActualStringProperty* pSharedMemoryName;
 	} SensorInvokerStream;
 
-	typedef XnStringsHashT<SensorInvokerStream> _XnServerStreamsHash;
-
 	class XnServerStreamsHash;
 
 	class XnLockedServerStreamsHash
@@ -122,28 +120,28 @@ private:
 			this->m_locker = other.m_locker;
 			return *this;
 		}
+		
+		typedef XnStringsHashT<SensorInvokerStream>::Iterator Iterator;
 
-		inline _XnServerStreamsHash::Iterator Begin()
+		inline XnStringsHashT<SensorInvokerStream>::Iterator Begin()
 		{
 			return m_hash.Begin();
 		}
 
-		inline _XnServerStreamsHash::Iterator End()
+		inline XnStringsHashT<SensorInvokerStream>::Iterator End()
 		{
 			return m_hash.End();
 		}
 
-		typedef _XnServerStreamsHash::Iterator Iterator;
-
 	private:
-		inline XnLockedServerStreamsHash(_XnServerStreamsHash& hash, XN_CRITICAL_SECTION_HANDLE hLock) :
+		inline XnLockedServerStreamsHash(XnStringsHashT<SensorInvokerStream>& hash, XN_CRITICAL_SECTION_HANDLE hLock) :
 			m_hash(hash),
 			m_locker(hLock)
 		{}
 
 		friend class XnServerSensorInvoker::XnServerStreamsHash;
 
-		_XnServerStreamsHash& m_hash;
+		XnStringsHashT<SensorInvokerStream>& m_hash;
 		XnAutoCSLocker m_locker;
 	};
 
@@ -187,7 +185,7 @@ private:
 
 	private:
 		XN_CRITICAL_SECTION_HANDLE m_hLock;
-		_XnServerStreamsHash m_hash;
+		XnStringsHashT<SensorInvokerStream> m_hash;
 	};
 
 	// Functions
