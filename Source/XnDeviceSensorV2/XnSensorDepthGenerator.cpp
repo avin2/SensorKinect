@@ -50,11 +50,11 @@ XnSensorDepthGenerator::~XnSensorDepthGenerator()
 XnStatus XnSensorDepthGenerator::Init()
 {
 	XnStatus nRetVal = XN_STATUS_OK;
-	
+
 	nRetVal = XnSensorMapGenerator::Init();
 	XN_IS_STATUS_OK(nRetVal);
 
-	const XnChar* aProps[] = 
+	const XnChar* aProps[] =
 	{
 		XN_STREAM_PROPERTY_ZERO_PLANE_DISTANCE,
 		XN_STREAM_PROPERTY_ZERO_PLANE_PIXEL_SIZE,
@@ -180,7 +180,7 @@ XnStatus XnSensorDepthGenerator::GetUserPosition(XnUInt32 nIndex, XnBoundingBox3
 
 XnStatus XnSensorDepthGenerator::RegisterToUserPositionChange(XnModuleStateChangedHandler handler, void* pCookie, XnCallbackHandle& hCallback)
 {
-	const XnChar* aProps[] = 
+	const XnChar* aProps[] =
 	{
 		XN_STREAM_PROPERTY_AGC_BIN,
 		NULL
@@ -244,6 +244,11 @@ XnStatus XnSensorDepthGenerator::SetViewPoint(xn::ProductionNode& OtherNode)
 	}
 }
 
+XnStatus XnSensorDepthGenerator::GetPixelCoordinatesInViewPoint(xn::ProductionNode& other, XnUInt32 x, XnUInt32 y, XnUInt32& altX, XnUInt32& altY)
+{
+    return 0;
+}
+
 XnStatus XnSensorDepthGenerator::ResetViewPoint()
 {
 	return SetIntProperty(XN_STREAM_PROPERTY_REGISTRATION, FALSE);
@@ -259,7 +264,7 @@ XnBool XnSensorDepthGenerator::IsViewPointAs(xn::ProductionNode& OtherNode)
 
 XnStatus XnSensorDepthGenerator::RegisterToViewPointChange(XnModuleStateChangedHandler handler, void* pCookie, XnCallbackHandle& hCallback)
 {
-	const XnChar* aProps[] = 
+	const XnChar* aProps[] =
 	{
 		XN_STREAM_PROPERTY_REGISTRATION,
 		NULL
@@ -306,7 +311,7 @@ XnBool XnSensorDepthGenerator::IsFrameSyncedWith(xn::ProductionNode& OtherNode)
 
 XnStatus XnSensorDepthGenerator::RegisterToFrameSyncChange(XnModuleStateChangedHandler handler, void* pCookie, XnCallbackHandle& hCallback)
 {
-	const XnChar* aProps[] = 
+	const XnChar* aProps[] =
 	{
 		XN_MODULE_PROPERTY_FRAME_SYNC,
 		NULL

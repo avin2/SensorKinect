@@ -36,8 +36,8 @@
 #pragma warning (push)
 #pragma warning (disable: 4250)
 
-class XnSensorDepthGenerator : 
-	public XnSensorMapGenerator, 
+class XnSensorDepthGenerator :
+	public XnSensorMapGenerator,
 	virtual public xn::ModuleDepthGenerator,
 	virtual public xn::ModuleUserPositionInterface,
 	virtual public xn::ModuleAlternativeViewPointInterface,
@@ -68,6 +68,7 @@ public:
 	xn::ModuleAlternativeViewPointInterface* GetAlternativeViewPointInterface() { return this; }
 	XnBool IsViewPointSupported(xn::ProductionNode& OtherNode);
 	XnStatus SetViewPoint(xn::ProductionNode& OtherNode);
+    XnStatus GetPixelCoordinatesInViewPoint(xn::ProductionNode& other, XnUInt32 x, XnUInt32 y, XnUInt32& altX, XnUInt32& altY);
 	XnStatus ResetViewPoint();
 	XnBool IsViewPointAs(xn::ProductionNode& OtherNode);
 	XnStatus RegisterToViewPointChange(XnModuleStateChangedHandler handler, void* pCookie, XnCallbackHandle& hCallback);
@@ -83,7 +84,7 @@ public:
 
 protected:
 	virtual void FilterProperties(XnActualPropertiesHash* pHash);
-	
+
 private:
 	XnStatus UpdateRealWorldTranslationData();
 	XnBool IsSensorImageNode(xn::ProductionNode& Other);
